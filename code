@@ -1,0 +1,56 @@
+class Student:
+    def __init__(self, name, roll_number, courses):
+        self.name = name
+        self.roll_number = roll_number
+        self.courses = courses
+
+    def display_student_info(self):
+        print("Name: ", self.name)
+        print("Roll Number: ", self.roll_number)
+        print("Courses: ", self.courses)
+
+class StudentPortal:
+    def __init__(self):
+        self.students = []
+
+    def add_student(self, student):
+        self.students.append(student)
+
+    def remove_student(self, roll_number):
+        for index, student in enumerate(self.students):
+            if student.roll_number == roll_number:
+                del self.students[index]
+                return True
+        return False
+
+    def display_students(self):
+        for student in self.students:
+            student.display_student_info()
+
+if __name__ == "__main__":
+    student_portal = StudentPortal()
+    while True:
+        print("1. Add student")
+        print("2. Remove student")
+        print("3. Display students")
+        print("4. Exit")
+        choice = int(input("Enter your choice: "))
+        if choice == 1:
+            name = input("Enter name: ")
+            roll_number = input("Enter roll number: ")
+            courses = input("Enter courses (comma-separated): ").split(",")
+            student = Student(name, roll_number, courses)
+            student_portal.add_student(student)
+        elif choice == 2:
+            roll_number = input("Enter roll number: ")
+            result = student_portal.remove_student(roll_number)
+            if result:
+                print("Student removed successfully")
+            else:
+                print("Student not found")
+        elif choice == 3:
+            student_portal.display_students()
+        elif choice == 4:
+            break
+        else:
+            print("Invalid choice")
